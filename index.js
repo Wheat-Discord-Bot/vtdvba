@@ -3,10 +3,19 @@ require('events').defaultMaxListeners = Infinity
 const { Collection, Client, Intents } = require('discord.js')
 const fs = require('fs')
 require('dotenv').config()
+const express = require('express')
 
 const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES]})
 let commandsList = new Collection()
 let aliasesList = new Collection()
+
+const app = express()
+
+app.get('/', function (req, res) {
+  res.send('Hello World')
+})
+
+app.listen(3000)
 
 const addCommand = () => {
     fs.readdir(`./commands/`, (error, files) => {
